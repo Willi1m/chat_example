@@ -17,6 +17,5 @@ exports.addQA = function(q,a,callback){
 }
 
 exports.answer = function(q){
-  //返回一个promise
   return QA.find({q:q}).exec();
 }
