@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; }
+      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages li { padding: 5px 10px; }
+      #messages li:nth-child(odd) { background: #eee; }
+      #messages li.ai {color: #498;}
+
+    </style>
+  </head>
+  <body>
+    <ul id="messages">
+      <li class="ai">小黄鸡： 新来的，我是小黄鸡，你叫什么名字啊</li>
+    </ul>
+    <form action="">
+      <input id="m" autocomplete="off" /><button>Send</button>
+    </form>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+      var name = "";
+      var pickname = true;
+      var socket = io();
+      var ai_on = true;
+      $('form').submit(function(){
+        if (pickname){
+          name = $('#m').val()
+          $('#messages').append($('<li>').text(name));
+          $("#messages").append($('<li class="ai">').text('小黄鸡: 欢迎欢迎,如果你不想看到小黄鸡说话，可以输入 shut_up_ai'));
+          pickname = false;
+        }else{
+          if($('#m').val()=="shut_up_ai"){
+            ai_on = false;
+            $("#messages").append($('<li class="ai">').text('小黄鸡: 哼，我不说话了，想我的话可以输入 wake_up_ai'));
+          }else if($('#m').val()=="wake_up_ai"){
+            ai_on = true;
+            $("#messages").append($('<li class="ai">').text('小黄鸡: 我又回来啦,如果你不想看到小黄鸡说话，可以输入 shut_up_ai'));
+          }else{
+            socket.emit('chat message', name + ": " + $('#m').val());
+          }
+        }
+        $('#m').val('');
+        return false;
+      });
+      socket.on('chat message', function(msg){
+        $('#messages').append($('<li>').text(msg));
+      });
+      socket.on('ai message', function(msg){
+        if(ai_on){
+          $('#messages').append($('<li class="ai">').text(msg));
+        }
+      });
+
+    </script>
+  </body>
+</html>
