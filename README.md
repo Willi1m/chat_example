@@ -1,7 +1,15 @@
-# chat-example
+# 小黄鸡聊天室
 
-This is the source code for a very simple chat example used for 
-the [Getting Started](http://socket.io/get-started/chat/) guide 
-of the Socket.IO website.
+其实这是一个聊天室,聊天室里面有一只小黄鸡,你可以教小黄鸡回答一些问题。
 
-Please refer to it to learn how to run this application.
+你可以随时关掉小黄鸡，只需要输入shut_up_ai
+
+你也可以随时打开小黄鸡，只需要输入wake_up_ai
+
+# 启动
+```
+node index.js
+```
+
+# 注意
+记得修改ai.js中的mongo地址。

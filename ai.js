@@ -1,5 +1,5 @@
 var mongoose = require('mongoose')
-mongoose.connect("mongodb://bigtom:1234qwer@ds011389.mlab.com:11389/xiaohuangji")
+mongoose.connect("mongodb://localhost/xiaohuangji")
 var Schema = mongoose.Schema;
 
 var QASchema = new Schema({
