@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "express": "4.10.2",
+    "mongoose": "^4.5.4",
     "socket.io": "1.2.0",
     "superagent": "^2.1.0"
   },
